@@ -2,23 +2,24 @@ services:
   - type: web
     name: n8n-public
     runtime: docker
-    repo: https://github.com/n8n-io/n8n-docker-images
     plan: free
     region: frankfurt
-    dockerfilePath: Dockerfile
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /healthz
     envVars:
+      # Seguridad y zona horaria
       - key: N8N_ENCRYPTION_KEY
-        sync: false
+        value: e8a4cd338e645902d3cafbb83e7b61cb13b009e6e0c22608ce5f7bce410bf51c
       - key: N8N_BASIC_AUTH_ACTIVE
         value: "true"
       - key: N8N_BASIC_AUTH_USER
-        sync: false
+        value: e8a4cd338e645902d3cafbb83e7b61cb13b009e6e0c22608ce5f7bce410bf51c
       - key: N8N_BASIC_AUTH_PASSWORD
-        sync: false
+        value: f411e0788977482ab01c14892a26abd5e7562cb7f4bed24186ef92a60289a6b7
       - key: GENERIC_TIMEZONE
         value: Europe/Madrid
 
+      # Red / reverse proxy en Render
       - key: PORT
         value: 10000
       - key: N8N_PORT
@@ -32,6 +33,7 @@ services:
       - key: N8N_EDITOR_BASE_URL
         value: https://n8n-public.onrender.com/
 
+      # Base de datos Postgres
       - key: DB_TYPE
         value: postgresdb
       - key: DB_POSTGRESDB_HOST
